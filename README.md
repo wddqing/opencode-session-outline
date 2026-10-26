@@ -17,26 +17,36 @@
 
 ## 安装
 
-### 方式一：软链到发现目录（推荐）
+插件直接放在 OpenCode 的 CLI 插件发现目录：
 
-OpenCode 会扫描 `~/.config/opencode/plugins`。把仓库链进去即可：
+```text
+~/.config/opencode/plugins/opencode-session-outline
+```
+
+当前已按这种方式安装，不需要软链接，也不需要改 `cli.json`。
+
+全新机器：
 
 ```bash
-ln -s /path/to/opencode-session-outline \
-  ~/.config/opencode/plugins/session-outline
+git clone git@github.com:wddqing/opencode-session-outline.git \
+  ~/.config/opencode/plugins/opencode-session-outline
+cd ~/.config/opencode/plugins/opencode-session-outline
+npm install
 ```
 
 保存后 OpenCode 会自动重载；如果当前 TUI 没反应，执行 `/reload` 或重新打开。
 
-### 方式二：写入 `cli.json`
+### 可选：写入 `cli.json`
+
+如果不想放在发现目录，也可以在 `~/.config/opencode/cli.json` 的 `plugins` 里写绝对路径：
 
 ```json
 {
-  "plugins": ["/path/to/opencode-session-outline"]
+  "plugins": ["/Users/wddqing/.config/opencode/plugins/opencode-session-outline"]
 }
 ```
 
-本地目录需要根目录下的 `tui.tsx` 入口（仓库已提供）。
+两种方式二选一，不要同时使用。
 
 ### 可选参数
 
@@ -44,7 +54,7 @@ ln -s /path/to/opencode-session-outline \
 {
   "plugins": [
     {
-      "package": "/path/to/opencode-session-outline",
+      "package": "/Users/wddqing/.config/opencode/plugins/opencode-session-outline",
       "options": { "jumpStepMs": 70 }
     }
   ]
@@ -115,7 +125,7 @@ test/            单元测试
 - 工具操作 → 详情面板：显示工具名、状态、输入/输出，底部有跳转和关闭
 - 从详情面板点击 `↑ Jump to turn`：面板关闭并正确落到所属轮次
 - `npm run typecheck` 通过；14 个单元测试通过
-- 真实配置（`~/.config/opencode/plugins` 软链）加载通过
+- 真实配置（`~/.config/opencode/plugins` 发现目录）加载通过
 
 ## 已知限制
 
